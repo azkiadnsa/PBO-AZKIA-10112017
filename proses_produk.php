@@ -1,24 +1,39 @@
 <?php
-class Produk {
-    public $nama;
-    public $harga;
-
-    public function statusHarga() {
-        if ($this->harga > 100000) {
-        return "Produk Mahal";
-    } else {
-        return "Produk Terjangkau";
+// Class Mahasiswa
+class Mahasiswa {
+    public function statusKuis($nilai) {
+        if ($nilai >= 70) {
+            return "Lulus Kuis";
+        } else {
+            return "Tidak Lulus Kuis";
+        }
     }
- }
-
 }
-$produk1 = new Produk();
 
-$produk1->nama = htmlspecialchars($_POST['nama']);
-$produk1->harga = htmlspecialchars($_POST['harga']);
-echo "<h2>Data Produk Warung Azkia</h2>";
-echo "Nama Produk : " . $produk1->nama . "<br>";
-echo "Harga : Rp " . $produk1->harga . "<br>";
-echo "Status Harga Produk : " . $produk1->statusHarga();
+$mhs = new Mahasiswa();
+$mahasiswa = [];
 
+// Simpan data dari form ke array
+for ($i = 0; $i < count($_POST['nama']); $i++) {
+    $mahasiswa[$i] = [
+        "nama"   => $_POST['nama'][$i],
+        "kelas"  => $_POST['kelas'][$i],
+        "matkul" => "Pemrograman Berorientasi Objek",
+        "nilai"  => $_POST['nilai'][$i]
+    ];
+}
 ?>
+
+<h2>Data Nilai Mahasiswa</h2>
+
+<?php
+for ($i = 0; $i < count($mahasiswa); $i++) {
+    echo "Nama : " . $mahasiswa[$i]["nama"] . "<br>";
+    echo "Kelas : " . $mahasiswa[$i]["kelas"] . "<br>";
+    echo "Mata Kuliah : " . $mahasiswa[$i]["matkul"] . "<br>";
+    echo "Nilai : " . $mahasiswa[$i]["nilai"] . "<br>";
+    echo $mhs->statusKuis($mahasiswa[$i]["nilai"]) . "<br>";
+    echo "<hr>";
+}
+?>
+
